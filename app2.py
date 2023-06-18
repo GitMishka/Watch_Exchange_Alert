@@ -5,6 +5,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
@@ -16,8 +17,24 @@ def home():
             return redirect(url_for('edit_entry'))
         elif action == 'Delete':
             return redirect(url_for('delete_entry'))
-        
-    return render_template('home.html')  # You need to create home.html in templates folder
+        elif action == 'View':
+            return redirect(url_for('view_entries'))
+
+    return render_template('home.html') 
+@app.route('/view', methods=['GET'])
+def view_entries():
+    entries = fetch_db()
+    return render_template('view.html', entries=entries) 
+
+
+def fetch_db():
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM termlog")
+    entries = cur.fetchall()
+    cur.close()
+    conn.close()
+    return entries
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_entry():
@@ -28,7 +45,7 @@ def add_entry():
         post_time = datetime.now()
         insert_db(id, term, subreddit, post_time)
         return 'Entry added!'
-    return render_template('add.html')  # You need to create add.html in templates folder
+    return render_template('add.html')
 
 @app.route('/edit', methods=['GET', 'POST'])
 def edit_entry():
@@ -38,7 +55,7 @@ def edit_entry():
         subreddit = request.form.get('subreddit')
         update_db(id, term, subreddit)
         return 'Entry updated!'
-    return render_template('edit.html')  # You need to create edit.html in templates folder
+    return render_template('edit.html')  
 
 @app.route('/delete', methods=['GET', 'POST'])
 def delete_entry():
@@ -46,8 +63,7 @@ def delete_entry():
         id = request.form.get('id')
         delete_db(id)
         return 'Entry deleted!'
-    return render_template('delete.html')  # You need to create delete.html in templates folder
-
+    return render_template('delete.html') 
 def get_db_connection():
     return psycopg2.connect(
         host=config.pg_host,

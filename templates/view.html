@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Termlog Entries</h2>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Term</th>
+    <th>Subreddit</th>
+    <th>Post Time</th>
+  </tr>
+  {% for entry in entries %}
+  <tr>
+    <td>{{ entry[0] }}</td>
+    <td>{{ entry[1] }}</td>
+    <td>{{ entry[2] }}</td>
+    <td>{{ entry[3] }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+</body>
+</html>
