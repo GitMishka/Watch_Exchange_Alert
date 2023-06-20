@@ -5,7 +5,7 @@ from datetime import datetime
 import bcrypt
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # You should change this to a random string
+app.secret_key = 'test1' 
 
 def get_db_connection():
     conn = psycopg2.connect(
