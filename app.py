@@ -27,9 +27,10 @@ def login():
             session['logged_in'] = True
             return redirect(url_for('home'))
         else:
-            return 'Invalid credentials!'
+            return render_template('invalid.html') # Change this line
 
     return render_template('login.html')
+
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
