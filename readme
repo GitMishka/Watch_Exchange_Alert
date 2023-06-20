@@ -1,0 +1,27 @@
+DB Entry Web App
+
+This application is a Flask and psycopg2 based web interface for managing entries in a PostgreSQL database.
+
+Requirements:
+
+- Python 3.x
+- Flask
+- psycopg2
+- PostgreSQL
+
+Installation and Setup:
+
+1. Clone the repository to your local machine using git clone followed by the repository URL.
+2. Install the required Python packages using pip install -r requirements.txt.
+3. Run the application by using python app.py.
+4. Open a web browser and visit http://localhost:5000 to view and use the application.
+
+Features:
+
+- User authentication: Users are required to log in before they can interact with the application.
+- Add, Edit, Delete, and View database entries: Users can easily add new entries, update existing entries, delete entries, or view all entries in the database.
+
+
+
+
+
