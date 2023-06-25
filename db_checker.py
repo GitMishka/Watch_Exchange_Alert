@@ -27,8 +27,19 @@ def check_quality():
         cur.execute("DELETE FROM search_newposts WHERE id IS NULL;")
         conn.commit()
 
-    cur.close()
-    conn.close()
+    cur.execute("SELECT * FROM search_terms WHERE id IS NULL OR term IS NULL OR subreddit IS NULL;")
+    rows = cur.fetchall()
+
+    # Write rows with null id, term or subreddit into a CSV file
+    if rows:
+        with open('deleted_rows_search_terms.csv', 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(["id", "term", "subreddit", "post_time"])  # Writing the headers
+            writer.writerows(rows)  # Writing the data
+
+        # Delete rows with null id, term or subreddit
+        cur.execute("DELETE FROM search_terms WHERE id IS NULL OR term IS NULL OR subreddit IS NULL;")
+        conn.commit()
 
 if __name__ == "__main__":
     check_quality()
