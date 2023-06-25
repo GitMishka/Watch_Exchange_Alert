@@ -30,29 +30,25 @@ def check_quality():
     cur.execute("SELECT * FROM search_terms WHERE id IS NULL OR term IS NULL OR subreddit IS NULL;")
     rows = cur.fetchall()
 
-    # Write rows with null id, term or subreddit into a CSV file
+
     if rows:
         with open('deleted_rows_search_terms.csv', 'w', newline='') as f:
             writer = csv.writer(f)
-            writer.writerow(["id", "term", "subreddit", "post_time"])  # Writing the headers
-            writer.writerows(rows)  # Writing the data
+            writer.writerow(["id", "term", "subreddit", "post_time"]) 
+            writer.writerows(rows)  
 
-        # Delete rows with null id, term or subreddit
         cur.execute("DELETE FROM search_terms WHERE id IS NULL OR term IS NULL OR subreddit IS NULL;")
         conn.commit()
     cur.execute("SELECT * FROM search_texted WHERE id IS NULL OR url IS NULL;")
     rows = cur.fetchall()
 
-    # Write rows with null id or url into a CSV file
     if rows:
         with open('deleted_rows_search_texted.csv', 'w', newline='') as f:
             writer = csv.writer(f)
-            # Here, I'm assuming that you have more columns in your table,
-            # Replace ["id", "url", "other_columns"] with actual column names of your table
-            writer.writerow(["id", "url", "other_columns"])  # Writing the headers
-            writer.writerows(rows)  # Writing the data
 
-        # Delete rows with null id or url
+            writer.writerow(["id", "url", "other_columns"])  
+            writer.writerows(rows)  
+
         cur.execute("DELETE FROM search_texted WHERE id IS NULL OR url IS NULL;")
         conn.commit()
         
