@@ -1,27 +1,75 @@
-DB Entry Web App
+# Reddit Watch Exchange Alert
 
-This application is a Flask and psycopg2 based web interface for managing entries in a PostgreSQL database.
+This is a Python program for automatically alerting users via SMS about new posts on the 'watchexchange' subreddit, a platform where users can sell or buy watches. The program utilizes the PRAW library to interact with Reddit's API, Twilio API for sending SMS alerts, and Flask framework for creating a simple web interface for managing search terms.
 
-Requirements:
+## Features
+
+1. Searches the subreddit 'watchexchange' for new posts.
+2. The search is customizable - it can be modified with a list of key terms that the user is interested in.
+3. When a new post containing a key term is found, the user is alerted via SMS.
+4. The program uses a PostgreSQL database to keep track of posts and key terms.
+5. It provides a simple Flask-based web interface for managing search terms.
+6. A simple user authentication is implemented for secure access to the web interface.
+
+## Requirements
+
+To run this program, you will need:
 
 - Python 3.x
-- Flask
-- psycopg2
+- PRAW (Python Reddit API Wrapper)
 - PostgreSQL
+- Flask
+- Twilio API
+- Bcrypt
+- Tabulate
 
-Installation and Setup:
+You can install these requirements using pip:
 
-1. Clone the repository to your local machine using git clone followed by the repository URL.
-2. Install the required Python packages using pip install -r requirements.txt.
-3. Run the application by using python app.py.
-4. Open a web browser and visit http://localhost:5000 to view and use the application.
+```shell
+pip install praw psycopg2 flask twilio bcrypt tabulate
+```
 
-Features:
+You also need to set up a config.py file to store sensitive information:
 
-- User authentication: Users are required to log in before they can interact with the application.
-- Add, Edit, Delete, and View database entries: Users can easily add new entries, update existing entries, delete entries, or view all entries in the database.
+```python
+pg_host = 'your_postgresql_host'
+pg_database = 'your_postgresql_database'
+pg_user = 'your_postgresql_user'
+pg_password = 'your_postgresql_password'
+reddit_username = 'your_reddit_username'
+reddit_password = 'your_reddit_password'
+reddit_client_id = 'your_reddit_client_id'
+reddit_client_secret = 'your_reddit_client_secret'
+twilio_account_sid = 'your_twilio_account_sid'
+twilio_auth_token = 'your_twilio_auth_token'
+twilio_to_number = 'your_phone_number'
+```
 
+## Running the Program
 
+1. Ensure you have all the requirements installed.
+2. Make sure the config.py file is set up correctly.
+3. Run the program using Python.
 
+```shell
+python watchexchange_alert.py
+```
 
+## Web Interface
+
+Access the web interface at http://localhost:5000/ to add, edit, view, and delete search terms. Please note that the port number may vary if you have other services running on port 5000. The Flask debug mode is turned on by default.
+
+## Notes
+
+This program only fetches the 10 latest posts from the subreddit each time it runs the loop, so some posts might be missed if there are more than 10 posts made between each run. The current sleep time between runs is 10 seconds. Adjust these settings according to your needs. 
+
+This code is provided as is and without any warranty. It's essential to use this responsibly and adhere to the Reddit API terms of service. 
+
+## Future Developments
+
+Future developments can include support for other social media platforms, integration with email for sending alerts, and advanced search functionalities for better customization.
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Please make sure to update tests as appropriate. 
 

@@ -34,7 +34,6 @@ while True:
     subreddit = reddit.subreddit('watchexchange')
     posts = subreddit.new(limit=10)
 
-    # Define search terms and keyterm list
     cur.execute("SELECT term FROM search_terms WHERE subreddit = %s", (str(subreddit),))
     search_terms = [item[0] for item in cur.fetchall()]
 
