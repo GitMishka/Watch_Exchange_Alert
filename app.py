@@ -27,7 +27,7 @@ def login():
             session['logged_in'] = True
             return redirect(url_for('home'))
         else:
-            return render_template('invalid.html') # Change this line
+            return render_template('invalid.html') 
 
     return render_template('login.html')
 
